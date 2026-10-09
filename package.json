@@ -1,0 +1,11 @@
+{
+  "name": "treino-de-digitacao",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Treino de digitação em português, com acentos: palavras, frases, textos e números, com PPM, precisão e mapa de erros no teclado ABNT2.",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/micdog22/treino-de-digitacao.git" },
+  "homepage": "https://micdog22.github.io/treino-de-digitacao/"
+}

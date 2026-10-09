@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treino de Digitação — pratique digitação em português, com acentos</title>
+  <meta name="description" content="Pratique digitação em português com acentos de verdade: palavras, frases, textos e números. Mede PPM, precisão e consistência e mostra onde você mais erra no teclado ABNT2.">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./src/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Treino de Digitação</h1>
+    <p class="lead">Pratique digitação em português, com acentos de verdade. Funciona com teclados ABNT2 e US-Internacional.</p>
+  </header>
+
+  <main>
+    <section class="card config" aria-label="Configurações do treino">
+      <fieldset class="segmented">
+        <legend>Modo</legend>
+        <div class="segmented-options">
+          <label><input type="radio" name="modo" value="palavras" checked><span>Palavras</span></label>
+          <label><input type="radio" name="modo" value="frases"><span>Frases</span></label>
+          <label><input type="radio" name="modo" value="textos"><span>Textos</span></label>
+          <label><input type="radio" name="modo" value="numeros"><span>Números e símbolos</span></label>
+        </div>
+      </fieldset>
+      <div class="config-row">
+        <div class="field">
+          <label for="limite">Duração</label>
+          <select id="limite">
+            <optgroup label="Por tempo">
+              <option value="tempo-15">15 segundos</option>
+              <option value="tempo-30" selected>30 segundos</option>
+              <option value="tempo-60">60 segundos</option>
+              <option value="tempo-120">120 segundos</option>
+            </optgroup>
+            <optgroup label="Por quantidade de palavras">
+              <option value="palavras-10">10 palavras</option>
+              <option value="palavras-25">25 palavras</option>
+              <option value="palavras-50">50 palavras</option>
+              <option value="palavras-100">100 palavras</option>
+            </optgroup>
+          </select>
+        </div>
+        <label class="check" for="ignorar-acentos">
+          <input type="checkbox" id="ignorar-acentos">
+          <span>Ignorar acentos <span class="muted">(bom para quem está começando: “a” vale por “á”, “c” por “ç”)</span></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card typing" aria-labelledby="treino-titulo">
+      <h2 id="treino-titulo" class="sr-only">Treino</h2>
+      <div class="live">
+        <div><span class="live-label" id="vivo-rotulo">Tempo</span><strong id="vivo-progresso">30 s</strong></div>
+        <div><span class="live-label">PPM</span><strong id="vivo-ppm">—</strong></div>
+        <div><span class="live-label">Precisão</span><strong id="vivo-precisao">—</strong></div>
+      </div>
+      <div class="area" id="area">
+        <label for="entrada" class="sr-only">Campo de digitação</label>
+        <input id="entrada" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-describedby="instrucoes texto-leitor">
+        <div class="texto" aria-hidden="true"><div class="texto-linhas" id="texto-linhas"></div></div>
+        <p class="sr-only" id="texto-leitor"></p>
+        <p class="aviso-foco" id="aviso-foco" aria-hidden="true">Clique aqui ou toque para digitar</p>
+      </div>
+      <p class="hint" id="instrucoes">Digite o texto acima. O tempo começa na primeira tecla; o Backspace corrige. <kbd>Esc</kbd> sorteia um novo texto.</p>
+      <p class="notice" id="aviso" aria-live="polite"></p>
+      <div class="actions">
+        <button type="button" class="btn" id="novo-texto">Novo texto</button>
+        <button type="button" class="btn secondary" id="recomecar">Recomeçar este texto</button>
+      </div>
+    </section>
+
+    <section class="card results" id="resultado" hidden aria-labelledby="resultado-titulo">
+      <h2 id="resultado-titulo" tabindex="-1">Resultado</h2>
+      <p class="result-message" id="r-mensagem" aria-live="polite"></p>
+      <div class="metrics">
+        <div class="metric main"><strong id="r-ppm">0</strong><span>PPM</span></div>
+        <div class="metric"><strong id="r-precisao">0%</strong><span>precisão</span></div>
+        <div class="metric"><strong id="r-erros">0</strong><span>erros</span></div>
+        <div class="metric"><strong id="r-consistencia">—</strong><span>consistência</span></div>
+        <div class="metric"><strong id="r-tempo">0 s</strong><span>tempo</span></div>
+      </div>
+      <p class="muted small" id="r-detalhes"></p>
+      <div class="result-grid">
+        <div>
+          <h3>Caracteres em que você mais errou</h3>
+          <ol class="missed" id="r-teclas"></ol>
+        </div>
+        <div>
+          <h3>Erros no teclado ABNT2</h3>
+          <div class="keyboard" id="teclado" role="img" aria-label="Mapa de erros no teclado ABNT2"></div>
+          <p class="muted small">Letras acentuadas contam na letra e na tecla do acento.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn" id="r-novo">Novo texto</button>
+        <button type="button" class="btn secondary" id="r-repetir">Repetir este texto</button>
+      </div>
+    </section>
+
+    <section class="card history" aria-labelledby="historico-titulo">
+      <h2 id="historico-titulo">Seus treinos</h2>
+      <p id="recorde"></p>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Últimos treinos, do mais recente para o mais antigo</caption>
+          <thead><tr><th scope="col">Data</th><th scope="col">Modo</th><th scope="col">Duração</th><th scope="col">PPM</th><th scope="col">Precisão</th></tr></thead>
+          <tbody id="historico"></tbody>
+        </table>
+      </div>
+      <p class="muted" id="historico-vazio">Nenhum treino salvo ainda. Seus resultados ficam só neste navegador.</p>
+      <button type="button" class="btn secondary" id="limpar-historico">Limpar histórico</button>
+    </section>
+
+    <section class="card about" aria-labelledby="como-titulo">
+      <h2 id="como-titulo">Como as medidas são calculadas</h2>
+      <ul>
+        <li><strong>PPM</strong> (palavras por minuto): caracteres corretos do texto digitado, divididos por 5 (o tamanho padrão de uma palavra), por minuto.</li>
+        <li><strong>Precisão</strong>: porcentagem de teclas certas. Um erro corrigido com Backspace continua contando.</li>
+        <li><strong>Consistência</strong>: o quanto o seu ritmo se manteve estável de um segundo para o outro (100% = ritmo constante).</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Tudo roda no seu navegador. Código aberto no <a href="https://github.com/micdog22/treino-de-digitacao">GitHub</a> · Licença MIT</p>
+  </footer>
+</body>
+</html>
