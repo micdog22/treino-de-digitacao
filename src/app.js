@@ -174,8 +174,8 @@ function updateLive(now = performance.now()) {
   }
   const ms = session.elapsed(now);
   const keys = session.keystrokes;
-  els.livePpm.textContent = ms >= 1000 ? fmt0.format(wpm(session.correctCount(), ms)) : '—';
-  els.liveAccuracy.textContent = keys.length ? `${fmt0.format(accuracy(keys.filter((k) => k.correct).length, keys.length))}%` : '—';
+  els.livePpm.textContent = ms >= 1000 ? fmt0.format(wpm(session.correctCount(), ms)) : '-';
+  els.liveAccuracy.textContent = keys.length ? `${fmt0.format(accuracy(keys.filter((k) => k.correct).length, keys.length))}%` : '-';
 }
 
 function startTimer() {
@@ -308,7 +308,7 @@ function finish(now = performance.now()) {
   els.ppm.textContent = fmt0.format(ppm);
   els.accuracy.textContent = `${fmt1.format(acc)}%`;
   els.errors.textContent = String(result.errors);
-  els.consistency.textContent = result.consistency === null ? '—' : `${fmt0.format(result.consistency)}%`;
+  els.consistency.textContent = result.consistency === null ? '-' : `${fmt0.format(result.consistency)}%`;
   els.time.textContent = `${fmt1.format(result.elapsedMs / 1000)} s`;
   els.details.textContent = `${result.correctChars} caracteres certos de ${result.typedChars} digitados no texto final · `
     + `${result.keystrokes} teclas · PPM bruto (todas as teclas): ${fmt0.format(result.rawPpm)}`;

@@ -1,4 +1,4 @@
-# Treino de Digitação — pratique digitação em português, com acentos (HTML + JavaScript)
+# Treino de Digitação: pratique digitação em português, com acentos (HTML + JavaScript)
 
 A maioria dos sites de treino de digitação é pensada para o inglês: não tem acento, não tem “ç” e às vezes nem entende as teclas mortas do teclado brasileiro. Este treino foi feito para o português, com palavras, frases e textos acentuados de verdade, e funciona tanto no teclado ABNT2 quanto no US-Internacional.
 
@@ -43,4 +43,4 @@ npm test
 Issues e pull requests são bem-vindos. Sugestões de frases e textos também: eles precisam ser originais, sem aspas nem acentos soltos.
 
 ## Licença
-MIT — veja [LICENSE](LICENSE).
+MIT. Veja [LICENSE](LICENSE).
